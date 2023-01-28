@@ -1,13 +1,14 @@
-use itertools::{
-    Itertools,
-    EitherOrBoth::*,
-};
+use itertools::{EitherOrBoth::*, Itertools};
 
 fn main() {
     let r1 = std::env::args().nth(1).expect("r1 expected");
     let r2 = std::env::args().nth(2).expect("r2 expected");
 
-    let smaller = if roman_num_smaller(&r1, &r2) {"smaller"} else {"not smaller"};
+    let smaller = if roman_num_smaller(&r1, &r2) {
+        "smaller"
+    } else {
+        "not smaller"
+    };
     println!("{} is {} than {}", r1, smaller, r2)
 }
 
@@ -17,11 +18,14 @@ fn roman_num_smaller(r1: &str, r2: &str) -> bool {
             Both(l, r) => {
                 let lo = roman_order(l);
                 let ro = roman_order(r);
-                if lo < ro { return true }
-                if lo > ro { return false }
-            },
+                if lo < ro {
+                    return true;
+                } else if lo > ro {
+                    return false;
+                }
+            }
             Left(_l) => return false,
-            Right(_r) => return true
+            Right(_r) => return true,
         }
     }
     false
@@ -35,8 +39,8 @@ fn roman_order(c: char) -> i16 {
         'L' => 4,
         'X' => 3,
         'V' => 2,
-        'I' => 1,        
-        _ => 0
+        'I' => 1,
+        _ => 0,
     }
 }
 
